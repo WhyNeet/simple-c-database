@@ -22,3 +22,10 @@ cc_library(
   deps = [":io", ":data"],
   visibility = ["//visibility:public"]
 )
+
+cc_test(
+  name = "data_test",
+  srcs = ["tests/row.c"],
+  deps = [":data"],
+  size = "small"
+)
