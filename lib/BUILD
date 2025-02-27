@@ -5,3 +5,12 @@ cc_library(
   includes = ["include"],
   visibility = ["//visibility:public"]
 )
+
+cc_library(
+  name = "commands",
+  srcs = ["commands.c"],
+  hdrs = ["include/commands.h"],
+  includes = ["include"],
+  deps = [":io"],
+  visibility = ["//visibility:public"]
+)
