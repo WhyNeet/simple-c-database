@@ -3,6 +3,7 @@
 
 #include "io.h"
 #include "row.h"
+#include "table.h"
 
 typedef enum {
   META_COMMAND_SUCCESS,
@@ -26,6 +27,8 @@ typedef struct {
 PrepareResult prepare_statement(InputBuffer *input_buffer,
                                 Statement *statement);
 
-void exec_statement(Statement *statement);
+typedef enum { EXECUTE_SUCCESS, EXECUTE_TABLE_FULL } ExecuteResult;
+
+ExecuteResult exec_statement(Statement *statement, Table* table);
 
 #endif
