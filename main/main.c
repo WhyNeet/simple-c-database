@@ -1,5 +1,5 @@
-#include "../lib/include/commands.h"
-#include "../lib/include/io.h"
+#include "lib/commands.h"
+#include "io.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
