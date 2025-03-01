@@ -1,4 +1,5 @@
 #include "lib/commands.h"
+#include "lib/table.h"
 #include "io.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -6,6 +7,7 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
+  Table* table = new_table();
   InputBuffer *input_buffer = new_input_buffer();
 
   while (true) {
@@ -28,11 +30,11 @@ int main(int argc, char *argv[]) {
     case (PREPARE_SUCCESS):
       break;
     case (PREPARE_UNRECOGNIZED_STATEMENT):
-      printf("unregonized statement: `%s`.\n", input_buffer->buffer);
+      printf("unrecognized statement: `%s`.\n", input_buffer->buffer);
       continue;
     }
 
-    exec_statement(&statement);
+    exec_statement(&statement, table);
     printf("executed.\n");
   }
 
