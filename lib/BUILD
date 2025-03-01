@@ -3,14 +3,18 @@ cc_library(
   srcs = ["io.c"],
   hdrs = ["include/io.h"],
   includes = ["include"],
+  strip_include_prefix = "include",
+  include_prefix = "lib",
   visibility = ["//visibility:public"]
 )
 
 cc_library(
   name = "data",
-  srcs = ["row.c"],
+  srcs = ["row.c", "table.c"],
   includes = ["include"],
-  hdrs = ["include/row.h"],
+  strip_include_prefix = "include",
+  hdrs = ["include/row.h", "include/table.h"],
+  include_prefix = "lib",
   visibility = ["//visibility:public"]
 )
 
@@ -19,6 +23,8 @@ cc_library(
   srcs = ["commands.c"],
   hdrs = ["include/commands.h"],
   includes = ["include"],
+  include_prefix = "lib",
+  strip_include_prefix = "include",
   deps = [":io", ":data"],
   visibility = ["//visibility:public"]
 )

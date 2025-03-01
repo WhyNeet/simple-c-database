@@ -1,4 +1,4 @@
-#include "../include/row.h"
+#include "row.h"
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
