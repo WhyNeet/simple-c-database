@@ -1,13 +1,13 @@
 #include "lib/commands.h"
+#include "lib/io.h"
 #include "lib/table.h"
-#include "io.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-  Table* table = new_table();
+  Table *table = new_table();
   InputBuffer *input_buffer = new_input_buffer();
 
   while (true) {
@@ -34,8 +34,14 @@ int main(int argc, char *argv[]) {
       continue;
     }
 
-    exec_statement(&statement, table);
-    printf("executed.\n");
+    switch (exec_statement(&statement, table)) {
+    case (EXECUTE_SUCCESS):
+      printf("executed.\n");
+      break;
+    case (EXECUTE_TABLE_FULL):
+      printf("failed to insert: table is full.\n");
+      break;
+    }
   }
 
   return 0;
