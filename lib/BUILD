@@ -82,3 +82,15 @@ cc_test(
         ":io",
     ],
 )
+
+cc_test(
+    name = "persistence_test",
+    size = "small",
+    srcs = [
+        "tests/persistence.c",
+    ],
+    deps = [
+        ":commands",
+        ":data",
+    ],
+)
