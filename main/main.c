@@ -29,6 +29,12 @@ int main(int argc, char *argv[]) {
     switch (prepare_statement(input_buffer, &statement)) {
     case (PREPARE_SUCCESS):
       break;
+    case (PREPARE_SYNTAX_ERROR):
+      printf("syntax error.\n");
+      continue;
+    case (PREPARE_STRING_TOO_LONG):
+      printf("argument is too long.\n");
+      continue;
     case (PREPARE_UNRECOGNIZED_STATEMENT):
       printf("unrecognized statement: `%s`.\n", input_buffer->buffer);
       continue;
