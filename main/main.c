@@ -7,7 +7,13 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-  Table *table = db_open("main.db");
+  if (argc < 2) {
+    printf("provide a database name to launch REPL.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  char *filename = argv[1];
+  Table *table = db_open(filename);
   InputBuffer *input_buffer = new_input_buffer();
 
   while (true) {
