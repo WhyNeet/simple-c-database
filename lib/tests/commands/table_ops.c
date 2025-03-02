@@ -7,7 +7,7 @@
 #include <string.h>
 
 void test_table_operations() {
-  Table *table = new_table();
+  Table *table = db_open("ops_test_db");
 
   Row row;
   row.id = 0;
@@ -40,7 +40,7 @@ void test_table_operations() {
 
   assert(strcmp(buffer, "row[0]: `whyneet` `whyneet@example.com`\n") == 0);
 
-  free_table(table);
+  db_close(table);
 }
 
 int main() {

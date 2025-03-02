@@ -6,7 +6,7 @@
 #include <string.h>
 
 void test_database_persistence() {
-  Table *table = new_table();
+  Table *table = db_open("test_db");
 
   Row row;
   row.id = 0;
@@ -20,9 +20,9 @@ void test_database_persistence() {
   exec_statement(&insert_stmt, table);
 
   // same behavior ad with ".exit" meta command
-  free_table(table);
+  db_close(table);
 
-  Table *table_2 = new_table();
+  Table *table_2 = db_open("test_db");
 
   // capture the select statement output and redirect to a buffer
   char buffer[100];
@@ -44,7 +44,7 @@ void test_database_persistence() {
 
   assert(strcmp(buffer, "row[0]: `whyneet` `whyneet@example.com`\n") == 0);
 
-  free_table(table);
+  db_close(table);
 }
 
 int main() {

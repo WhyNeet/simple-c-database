@@ -7,7 +7,7 @@
 #include <string.h>
 
 void test_table_full_error() {
-  Table *table = new_table();
+  Table *table = db_open("test_full_db");
 
   for (uint32_t i = 0; i < TABLE_MAX_ROWS; i++) {
     Row row;
@@ -31,7 +31,7 @@ void test_table_full_error() {
   ExecuteResult result = exec_statement(&insert_stmt, table);
   assert(result == EXECUTE_TABLE_FULL);
 
-  free_table(table);
+  db_close(table);
 }
 
 int main() {
