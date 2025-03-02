@@ -35,6 +35,9 @@ int main(int argc, char *argv[]) {
     case (PREPARE_STRING_TOO_LONG):
       printf("argument is too long.\n");
       continue;
+    case (PREPARE_NEGATIVE_ID):
+      printf("id must be positive.\n");
+      continue;
     case (PREPARE_UNRECOGNIZED_STATEMENT):
       printf("unrecognized statement: `%s`.\n", input_buffer->buffer);
       continue;
