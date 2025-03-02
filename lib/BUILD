@@ -48,11 +48,37 @@ cc_test(
 )
 
 cc_test(
-    name = "commands_test",
+    name = "table_ops_test",
     size = "small",
-    srcs = ["tests/commands.c"],
+    srcs = [
+        "tests/commands/table_ops.c",
+    ],
     deps = [
         ":commands",
         ":data",
+    ],
+)
+
+cc_test(
+    name = "table_errors_test",
+    size = "small",
+    srcs = [
+        "tests/commands/table_errors.c",
+    ],
+    deps = [
+        ":commands",
+        ":data",
+    ],
+)
+
+cc_test(
+    name = "prepare_test",
+    size = "small",
+    srcs = [
+        "tests/prepare.c",
+    ],
+    deps = [
+        ":commands",
+        ":io",
     ],
 )
