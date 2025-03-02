@@ -1,0 +1,3 @@
+"""A simple database written in C (Following the tutorial by cstack)."""
+
+bazel_dep(name = "rules_cc", version = "0.1.1")

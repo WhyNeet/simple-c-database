@@ -1,37 +1,48 @@
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
+
 cc_library(
-  name = "io",
-  srcs = ["io.c"],
-  hdrs = ["include/io.h"],
-  includes = ["include"],
-  strip_include_prefix = "include",
-  include_prefix = "lib",
-  visibility = ["//visibility:public"]
+    name = "io",
+    srcs = ["io.c"],
+    hdrs = ["include/io.h"],
+    include_prefix = "lib",
+    includes = ["include"],
+    strip_include_prefix = "include",
+    visibility = ["//visibility:public"],
 )
 
 cc_library(
-  name = "data",
-  srcs = ["row.c", "table.c"],
-  includes = ["include"],
-  strip_include_prefix = "include",
-  hdrs = ["include/row.h", "include/table.h"],
-  include_prefix = "lib",
-  visibility = ["//visibility:public"]
+    name = "data",
+    srcs = [
+        "row.c",
+        "table.c",
+    ],
+    hdrs = [
+        "include/row.h",
+        "include/table.h",
+    ],
+    include_prefix = "lib",
+    includes = ["include"],
+    strip_include_prefix = "include",
+    visibility = ["//visibility:public"],
 )
 
 cc_library(
-  name = "commands",
-  srcs = ["commands.c"],
-  hdrs = ["include/commands.h"],
-  includes = ["include"],
-  include_prefix = "lib",
-  strip_include_prefix = "include",
-  deps = [":io", ":data"],
-  visibility = ["//visibility:public"]
+    name = "commands",
+    srcs = ["commands.c"],
+    hdrs = ["include/commands.h"],
+    include_prefix = "lib",
+    includes = ["include"],
+    strip_include_prefix = "include",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":data",
+        ":io",
+    ],
 )
 
 cc_test(
-  name = "data_test",
-  srcs = ["tests/row.c"],
-  deps = [":data"],
-  size = "small"
+    name = "data_test",
+    size = "small",
+    srcs = ["tests/row.c"],
+    deps = [":data"],
 )
