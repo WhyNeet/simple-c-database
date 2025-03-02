@@ -30,15 +30,47 @@ void test_table_operations() {
 
   Statement select_stmt;
   select_stmt.kind = STATEMENT_SELECT;
-  exec_statement(&select_stmt, table);
+  ExecuteResult result = exec_statement(&select_stmt, table);
+
+  assert(result == EXECUTE_SUCCESS);
 
   fflush(stdout);
   fclose(stream);
+  stdout = fdopen(dup(fileno(stdout)), "w");
 
   assert(strcmp(buffer, "row[0]: `whyneet` `whyneet@example.com`\n") == 0);
+
+  free_table(table);
+}
+
+void test_table_operations_errors() {
+  Table *table = new_table();
+
+  for (uint32_t i = 0; i < TABLE_MAX_ROWS; i++) {
+    Row row;
+    row.id = i;
+    strcpy(&row.username, "whyneet");
+    strcpy(&row.email, "whyneet@example.com");
+    Statement insert_stmt;
+    insert_stmt.kind = STATEMENT_INSERT;
+    insert_stmt.row_to_insert = row;
+    ExecuteResult result = exec_statement(&insert_stmt, table);
+    assert(result == EXECUTE_SUCCESS);
+  }
+
+  Row row;
+  row.id = 9999;
+  strcpy(&row.username, "whyneet");
+  strcpy(&row.email, "whyneet@example.com");
+  Statement insert_stmt;
+  insert_stmt.kind = STATEMENT_INSERT;
+  insert_stmt.row_to_insert = row;
+  ExecuteResult result = exec_statement(&insert_stmt, table);
+  assert(result == EXECUTE_TABLE_FULL);
 }
 
 int main() {
   test_table_operations();
+  test_table_operations_errors();
   return 0;
 }
