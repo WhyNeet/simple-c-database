@@ -46,3 +46,13 @@ cc_test(
     srcs = ["tests/row.c"],
     deps = [":data"],
 )
+
+cc_test(
+    name = "commands_test",
+    size = "small",
+    srcs = ["tests/commands.c"],
+    deps = [
+        ":commands",
+        ":data",
+    ],
+)
