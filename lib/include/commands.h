@@ -18,7 +18,7 @@ typedef enum {
   PREPARE_NEGATIVE_ID
 } PrepareResult;
 
-MetaCommandResult exec_meta_command(InputBuffer *input_buffer);
+MetaCommandResult exec_meta_command(InputBuffer *input_buffer, Table *table);
 
 typedef enum { STATEMENT_INSERT, STATEMENT_SELECT } StatementKind;
 typedef struct {

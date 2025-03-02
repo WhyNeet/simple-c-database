@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-MetaCommandResult exec_meta_command(InputBuffer *input_buffer) {
+MetaCommandResult exec_meta_command(InputBuffer *input_buffer, Table *table) {
   if (strcmp(input_buffer->buffer, ".exit") == 0) {
+    db_close(table);
     exit(EXIT_SUCCESS);
   } else {
     return META_COMMAND_UNRECOGNIZED_COMMAND;
@@ -29,10 +30,10 @@ PrepareResult prepare_insert(InputBuffer *input_buffer, Statement *statement) {
   if (id < 0) {
     return PREPARE_NEGATIVE_ID;
   }
-  if (strlen(username) >= COLUMN_USERNAME_SIZE) {
+  if (strlen(username) > COLUMN_USERNAME_SIZE) {
     return PREPARE_STRING_TOO_LONG;
   }
-  if (strlen(email) >= COLUMN_EMAIL_SIZE) {
+  if (strlen(email) > COLUMN_EMAIL_SIZE) {
     return PREPARE_STRING_TOO_LONG;
   }
 
