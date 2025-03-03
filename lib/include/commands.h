@@ -1,9 +1,9 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-#include "io.h"
-#include "row.h"
-#include "table.h"
+#include "lib/io.h"
+#include "lib/row.h"
+#include "lib/table.h"
 
 typedef enum {
   META_COMMAND_SUCCESS,

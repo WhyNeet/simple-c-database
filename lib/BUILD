@@ -5,7 +5,6 @@ cc_library(
     srcs = ["io.c"],
     hdrs = ["include/io.h"],
     include_prefix = "lib",
-    includes = ["include"],
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
 )
@@ -21,7 +20,6 @@ cc_library(
         "include/table.h",
     ],
     include_prefix = "lib",
-    includes = ["include"],
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
 )
@@ -31,13 +29,23 @@ cc_library(
     srcs = ["commands.c"],
     hdrs = ["include/commands.h"],
     include_prefix = "lib",
-    includes = ["include"],
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
     deps = [
+        ":cursor",
         ":data",
         ":io",
     ],
+)
+
+cc_library(
+    name = "cursor",
+    srcs = ["cursor.c"],
+    hdrs = ["include/cursor.h"],
+    include_prefix = "lib",
+    strip_include_prefix = "include",
+    visibility = ["//visibility:public"],
+    deps = [":data"],
 )
 
 cc_test(

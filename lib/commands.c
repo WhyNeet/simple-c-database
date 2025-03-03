@@ -1,5 +1,6 @@
-#include "commands.h"
-#include "table.h"
+#include "lib/commands.h"
+#include "lib/cursor.h"
+#include "lib/table.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -64,20 +65,27 @@ ExecuteResult exec_insert(Statement *statement, Table *table) {
   }
 
   Row *row_to_insert = &statement->row_to_insert;
+  Cursor *cursor = table_end(table);
 
-  serialize_row(row_to_insert, row_slot(table, table->num_rows));
+  serialize_row(row_to_insert, cursor_value(cursor));
   table->num_rows += 1;
+
+  free(cursor);
 
   return EXECUTE_SUCCESS;
 }
 
 ExecuteResult exec_select(Statement *statement, Table *table) {
+  Cursor *cursor = table_start(table);
   Row row;
 
-  for (uint32_t i = 0; i < table->num_rows; i++) {
-    deserialize_row(row_slot(table, i), &row);
+  while (!cursor->is_at_end) {
+    deserialize_row(cursor_value(cursor), &row);
     print_row(&row);
+    cursor_advance(cursor);
   }
+
+  free(cursor);
 
   return EXECUTE_SUCCESS;
 }
