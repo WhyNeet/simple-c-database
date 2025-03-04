@@ -1,4 +1,5 @@
 #include "lib/row.h"
+#include "lib/row_ops.h"
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>

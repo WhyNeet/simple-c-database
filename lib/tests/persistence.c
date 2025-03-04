@@ -1,6 +1,7 @@
 #include "lib/commands.h"
 #include "lib/row.h"
 #include "lib/table.h"
+#include "lib/table_ops.h"
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>

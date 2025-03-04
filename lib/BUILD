@@ -11,10 +11,6 @@ cc_library(
 
 cc_library(
     name = "data",
-    srcs = [
-        "row.c",
-        "table.c",
-    ],
     hdrs = [
         "include/row.h",
         "include/table.h",
@@ -22,7 +18,26 @@ cc_library(
     include_prefix = "lib",
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
-    deps = ["//btree:node"],
+    deps = [],
+)
+
+cc_library(
+    name = "dataops",
+    srcs = [
+        "row_ops.c",
+        "table_ops.c",
+    ],
+    hdrs = [
+        "include/row_ops.h",
+        "include/table_ops.h",
+    ],
+    include_prefix = "lib",
+    strip_include_prefix = "include",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":data",
+        "//btree:node",
+    ],
 )
 
 cc_library(
@@ -36,6 +51,7 @@ cc_library(
         ":cursor",
         ":data",
         ":io",
+        "//btree:nodeops",
     ],
 )
 
@@ -46,14 +62,21 @@ cc_library(
     include_prefix = "lib",
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
-    deps = [":data"],
+    deps = [
+        ":data",
+        ":dataops",
+        "//btree:node",
+    ],
 )
 
 cc_test(
     name = "data_test",
     size = "small",
     srcs = ["tests/row.c"],
-    deps = [":data"],
+    deps = [
+        ":data",
+        ":dataops",
+    ],
 )
 
 cc_test(

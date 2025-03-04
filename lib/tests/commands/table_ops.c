@@ -1,3 +1,4 @@
+#include "lib/table_ops.h"
 #include "lib/commands.h"
 #include "lib/row.h"
 #include "lib/table.h"

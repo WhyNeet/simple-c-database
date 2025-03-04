@@ -1,6 +1,10 @@
 #include "lib/commands.h"
+#include "btree/node.h"
+#include "btree/node_ops.h"
 #include "lib/cursor.h"
+#include "lib/row_ops.h"
 #include "lib/table.h"
+#include "lib/table_ops.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -60,15 +64,15 @@ PrepareResult prepare_statement(InputBuffer *input_buffer,
 }
 
 ExecuteResult exec_insert(Statement *statement, Table *table) {
-  if (table->num_rows >= TABLE_MAX_ROWS) {
+  void *node = get_page(table->pager, table->root_page_num);
+  if (*leaf_node_num_cells(node) >= LEAF_NODE_MAX_CELLS) {
     return EXECUTE_TABLE_FULL;
   }
 
   Row *row_to_insert = &statement->row_to_insert;
   Cursor *cursor = table_end(table);
 
-  serialize_row(row_to_insert, cursor_value(cursor));
-  table->num_rows += 1;
+  leaf_node_insert(cursor, row_to_insert->id, row_to_insert);
 
   free(cursor);
 

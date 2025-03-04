@@ -1,6 +1,7 @@
 #include "lib/cursor.h"
 #include "btree/node.h"
 #include "lib/table.h"
+#include "lib/table_ops.h"
 #include <stdlib.h>
 
 Cursor *table_start(Table *table) {
