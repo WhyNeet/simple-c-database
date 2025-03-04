@@ -1,6 +1,7 @@
 #include "lib/commands.h"
 #include "lib/io.h"
 #include "lib/table.h"
+#include "lib/table_ops.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
