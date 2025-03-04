@@ -9,3 +9,16 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = ["//lib:data"],
 )
+
+cc_library(
+    name = "nodeops",
+    srcs = ["node_ops.c"],
+    hdrs = ["include/node_ops.h"],
+    include_prefix = "btree",
+    strip_include_prefix = "include",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":node",
+        "//lib:cursor",
+    ],
+)
