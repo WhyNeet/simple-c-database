@@ -22,6 +22,7 @@ cc_library(
     include_prefix = "lib",
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
+    deps = ["//btree:node"],
 )
 
 cc_library(
